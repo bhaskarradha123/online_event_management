@@ -16,10 +16,10 @@ public class Menu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String name;
+	private String item_name;
 	private String style;
 	private double price;
-	private int quantity;
+	private int description;
 	
 	@ManyToOne
 	private Organizer organizer;

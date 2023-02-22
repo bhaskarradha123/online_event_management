@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -18,7 +19,10 @@ public class Purohith {
 	private String name;
 	private String occasion;
 	private String fees;
+	private String door_no;
+	private String street;
+	private String location;
 
-	@ManyToOne
+	@OneToOne
 	private Organizer organizer;
 }

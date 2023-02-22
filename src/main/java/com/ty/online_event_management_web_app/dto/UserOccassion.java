@@ -10,16 +10,21 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Decoration {
+public class UserOccassion {
+   
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy =GenerationType.IDENTITY )
 	private int id;
-	private String design_pattern;
-	private String flowers;
-	private String design;
-	private double price;
-
+	private String name;
+	private String relation;
+	private String starttime;
+	private String startdate;
+	private String endtime;
+	private String enddate;
+	private String occasion;
+	
 	@ManyToOne
-	private Organizer organizer;
-
+	private User user;
+	
+	
 }

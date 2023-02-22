@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -18,8 +19,11 @@ public class MakeUp {
 	private String name;
 	private String type;
 	private double price;
+	private String door_no;
+	private String street;
+	private String location;
 
-	@ManyToOne
+	@OneToOne
 	private Organizer organizer;
 
 }
