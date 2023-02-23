@@ -17,9 +17,10 @@ public class Costume {
 	private int id;
 	private String name;
 	private String color;
-	private String style;
+	private String design;
+	private String cloth_type;
 	private double price;
-	
+
 	@ManyToOne
 	private Organizer organizer;
 

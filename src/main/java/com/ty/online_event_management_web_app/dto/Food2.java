@@ -5,27 +5,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import lombok.Data;
-
 @Entity
 @Data
-public class Venue {
+public class Food2 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String venue_name;
-	private String building_no;
-	private String street;
-	private String location;
-	private String district;
-	private String state;
-	private int pincode;
-	private String rent_per_day;
-	private int venue_capacity;
+	private String item_name;
+	private String style;
+	private double price;
+	private int count;
 	
-	@OneToOne
-	private Organizer organizer;
+	@ManyToOne
+	private UserOccassion occassion;
+	
+	
 }
