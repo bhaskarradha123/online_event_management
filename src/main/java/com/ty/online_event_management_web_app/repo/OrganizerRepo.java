@@ -43,6 +43,6 @@ public interface OrganizerRepo extends JpaRepository<Organizer, String> {
 	@Query("select o from Organizer o where o.service=?1")
 	public List<Menu> getMenuBYOrganizerService(String service);
 
-	public Organizer FindByEmail(String email); 
+	public Organizer findByEmail(String email); 
 
 }

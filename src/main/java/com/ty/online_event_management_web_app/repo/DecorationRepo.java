@@ -10,6 +10,6 @@ import com.ty.online_event_management_web_app.dto.Decoration;
 
 public interface DecorationRepo extends JpaRepository<Decoration, Integer> {
 	  @Query("select a from Decoration a where a.organizer.email=?1")
-	     public List<Decoration> getDecorationListByOrganizerByEmail(); 
+	     public List<Decoration> getDecorationListByOrganizerByEmail(String email); 
 	
 }
