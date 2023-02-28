@@ -35,7 +35,7 @@ public class OrganizerService {
 
 	public ResponseEntity<ResponseStructure<Organizer>> saveOrganizer(Organizer organizer) {
 		ResponseStructure<Organizer> responseStructure = new ResponseStructure<>();
-		responseStructure.setMessage("User Is Saved Sucessfully");
+		responseStructure.setMessage("Organizer Is Saved Sucessfully");
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setData(dao.saveOrganizer(organizer));
 		return new ResponseEntity<ResponseStructure<Organizer>>(responseStructure, HttpStatus.CREATED);

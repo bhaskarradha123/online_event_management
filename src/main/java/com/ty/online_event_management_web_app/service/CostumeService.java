@@ -11,6 +11,8 @@ import com.ty.online_event_management_web_app.dao.CostumeDao;
 import com.ty.online_event_management_web_app.dao.OrganizerDao;
 import com.ty.online_event_management_web_app.dto.Costume;
 import com.ty.online_event_management_web_app.dto.Organizer;
+import com.ty.online_event_management_web_app.exception.IdNotFoundByBandException;
+import com.ty.online_event_management_web_app.exception.IdNotFoundByCostumeException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByCostumeServiceException;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
@@ -50,7 +52,7 @@ public class CostumeService {
 			responseStructure.setData(dao.UpdateCostume(costume, id));
 			return new ResponseEntity<ResponseStructure<Costume>>(responseStructure, HttpStatus.CREATED);
 		} else {
-			throw new NoSuchElementFoundByCostumeServiceException();
+			throw new IdNotFoundByCostumeException();
 		}
 	}
 
@@ -64,12 +66,10 @@ public class CostumeService {
 			responseStructure.setData(dao.deleteCostume(id));
 			return new ResponseEntity<ResponseStructure<Costume>>(responseStructure, HttpStatus.CREATED);
 		} else {
-			throw new NoSuchElementFoundByCostumeServiceException();
+			throw new IdNotFoundByCostumeException();
 		}
 	}
-	
-	
-	
+
 	public ResponseEntity<ResponseStructure<Costume>> getCostumeById(int id) {
 
 		Costume costumedb = costumeDao.getCostumeById(id);
@@ -83,8 +83,5 @@ public class CostumeService {
 			throw new NoSuchElementFoundByCostumeServiceException();
 		}
 	}
-	
-	
-	
 
 }
