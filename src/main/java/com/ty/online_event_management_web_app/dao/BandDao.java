@@ -30,9 +30,9 @@ public class BandDao {
 
 	}
 
-	public Band updateBand(Band band, int id) {
-		if (repo.findById(id).isPresent()) {
-			Band banddb = repo.findById(id).get();
+	public Band updateBand(Band band, String id) {
+		if (repo.getBandById(id)!=null) {
+			Band banddb = repo.getBandById(id);
 			band.setId(id);
 			band.setOrganizer(banddb.getOrganizer());
 			return repo.save(band);
@@ -41,9 +41,9 @@ public class BandDao {
 		}
 	}
 
-	public Band deleteBand(int id) {
-		if (repo.findById(id).isPresent()) {
-			Band band = repo.findById(id).get();
+	public Band deleteBand(String id) {
+		if (repo.getBandById(id)!=null) {
+			Band band = repo.getBandById(id);
 			repo.delete(band);
 			return band;
 		} else {
@@ -51,14 +51,17 @@ public class BandDao {
 		}
 	}
 
-	public Band getBandById(int id) {
+	public Band getBandById(String id) {
 
-		if (repo.findById(id).isPresent()) {
-			return repo.findById(id).get();
+		if (repo.getBandById(id)!=null) {
+			return repo.getBandById(id);
 
 		} else {
 			return null;
 		}
 	}
+	
+	
+	
 
 }

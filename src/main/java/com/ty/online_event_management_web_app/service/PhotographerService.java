@@ -2,17 +2,18 @@ package com.ty.online_event_management_web_app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ty.online_event_management_web_app.dao.OrganizerDao;
 import com.ty.online_event_management_web_app.dao.PhotographerDao;
-
 import com.ty.online_event_management_web_app.dto.Organizer;
 import com.ty.online_event_management_web_app.dto.Photographer;
 
 import com.ty.online_event_management_web_app.exception.IdNotFoundByPhotographerException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByBandServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByPhotographerServiceException;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
@@ -38,7 +39,7 @@ public class PhotographerService {
 				"Organizer is not found for given email " + email + " to save band");
 	}
 
-	public ResponseEntity<ResponseStructure<Photographer>> updatePhotographer(int id, Photographer photographer) {
+	public ResponseEntity<ResponseStructure<Photographer>> updatePhotographer(String id, Photographer photographer) {
 		Photographer photographerdb = dao.updatePhotographer(photographer, id);
 		ResponseStructure<Photographer> responseStructure = new ResponseStructure<>();
 		if (photographerdb != null) {
@@ -53,7 +54,7 @@ public class PhotographerService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Photographer>> deletePhotographer(int id) {
+	public ResponseEntity<ResponseStructure<Photographer>> deletePhotographer(String id) {
 		Photographer photographerdb = dao.deleteVenue(id);
 		ResponseStructure<Photographer> responseStructure = new ResponseStructure<>();
 		if (photographerdb != null) {
@@ -68,7 +69,7 @@ public class PhotographerService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Photographer>> getPhotographerById(int id) {
+	public ResponseEntity<ResponseStructure<Photographer>> getPhotographerById(String id) {
 		Photographer photographerdb = dao.getPhotographerById(id);
 		ResponseStructure<Photographer> responseStructure = new ResponseStructure<>();
 		if (photographerdb != null) {
@@ -80,6 +81,21 @@ public class PhotographerService {
 		} else {
 			throw new NoSuchElementFoundByPhotographerServiceException(
 					"Photographer is not found for your id " + id + " to display");
+		}
+
+	}
+	
+	public ResponseEntity<ResponseStructure<Double>> getPhotographyBillById(String id) {
+		Photographer photodb = dao.getPhotographerById(id);
+		ResponseStructure<Double> responseStructure = new ResponseStructure<>();
+		if (photodb != null) {
+
+			responseStructure.setMessage("Sucessfully PhotographyBill  is Generated");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(photodb.getFees());
+			return new ResponseEntity<ResponseStructure<Double>>(responseStructure, HttpStatus.OK);
+		} else {
+			throw new NoSuchElementFoundByBandServiceException("Photography is not found for your id " + id + " to generatebill");
 		}
 
 	}

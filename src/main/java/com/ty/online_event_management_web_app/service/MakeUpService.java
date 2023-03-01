@@ -1,6 +1,9 @@
 package com.ty.online_event_management_web_app.service;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +39,7 @@ public class MakeUpService {
 				"Organizer is not found for given email " + email + " to save band");
 	}
 
-	public ResponseEntity<ResponseStructure<MakeUp>> updateMakeUp(int id, MakeUp makeUp) {
+	public ResponseEntity<ResponseStructure<MakeUp>> updateMakeUp(String id, MakeUp makeUp) {
 		MakeUp makeUpdb = dao.updateMakeUp(makeUp, id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
@@ -51,7 +54,7 @@ public class MakeUpService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<MakeUp>> deleteMakeUp(int id) {
+	public ResponseEntity<ResponseStructure<MakeUp>> deleteMakeUp(String id) {
 		MakeUp makeUpdb = dao.deleteMakeUp(id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
@@ -66,7 +69,7 @@ public class MakeUpService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<MakeUp>> getMakeUpById(int id) {
+	public ResponseEntity<ResponseStructure<MakeUp>> getMakeUpById(String id) {
 		MakeUp makeUpdb = dao.getMakeUpById(id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
@@ -81,5 +84,24 @@ public class MakeUpService {
 		}
 
 	}
+	
+	
+	public ResponseEntity<ResponseStructure<Double>> getMakeUpBillById(String id) {
+		MakeUp makeUp=dao.getMakeUpById(id);
+		ResponseStructure<Double> responseStructure = new ResponseStructure<>();
+		if (makeUp != null) {
+
+			responseStructure.setMessage("Sucessfully MakeUpBill  is Generated");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(makeUp.getPrice());
+			return new ResponseEntity<ResponseStructure<Double>>(responseStructure, HttpStatus.OK);
+		} else {
+			throw new NoSuchElementFoundByMakeUpServiceException("MakeUp is not found for your id " + id + " to generate MakeUpBill");
+		}
+
+	}
+	
+
+
 
 }

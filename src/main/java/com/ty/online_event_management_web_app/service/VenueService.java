@@ -2,6 +2,7 @@ package com.ty.online_event_management_web_app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.ty.online_event_management_web_app.dao.VenueDao;
 import com.ty.online_event_management_web_app.dto.Organizer;
 import com.ty.online_event_management_web_app.dto.Venue;
 import com.ty.online_event_management_web_app.exception.IdNotFoundByBandException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByBandServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByVenuexception;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
@@ -79,5 +81,22 @@ public class VenueService {
 		}
 
 	}
+	
+	public ResponseEntity<ResponseStructure<Double>> getVenueBillById(String id,int days) {
+		Venue venuedb = dao.getVenueById(id);
+		ResponseStructure<Double> responseStructure = new ResponseStructure<>();
+		if (venuedb != null) {
+           
+			responseStructure.setMessage("Sucessfully VenueBill  is Generated");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(venuedb.getRent_per_day()*days);
+			return new ResponseEntity<ResponseStructure<Double>>(responseStructure, HttpStatus.OK);
+		} else {
+			throw new NoSuchElementFoundByBandServiceException("Venue is not found for your id " + id + " to generate bill");
+		}
+
+	}
+	
+
 
 }

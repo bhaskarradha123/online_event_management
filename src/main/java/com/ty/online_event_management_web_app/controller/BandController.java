@@ -56,6 +56,7 @@ public class BandController {
 	@ApiOperation(value = "display Band", notes = "Api is used to display Band with given Band id")
 	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
 		@ApiResponse(code=404,message=" id  is not Found for the given band id")})
+ 
 	public ResponseEntity<ResponseStructure<Band>> getBandById(@RequestParam int id) {
 		return service.getBandById(id);
 	}

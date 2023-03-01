@@ -27,9 +27,9 @@ public class PhotographerDao {
 
 	}
 
-	public Photographer updatePhotographer(Photographer photographer, int id) {
-		if (repo.findById(id).isPresent()) {
-			Photographer photographerdb = repo.findById(id).get();
+	public Photographer updatePhotographer(Photographer photographer, String id) {
+		if (repo.getPhotographerById(id)!=null) {
+			Photographer photographerdb = repo.getPhotographerById(id);
 			photographer.setId(id);
 			photographer.setOrganizer(photographerdb.getOrganizer());
 			return repo.save(photographer);
@@ -38,9 +38,9 @@ public class PhotographerDao {
 		}
 	}
 
-	public Photographer deleteVenue(int id) {
-		if (repo.findById(id).isPresent()) {
-			Photographer photographer = repo.findById(id).get();
+	public Photographer deleteVenue(String id) {
+		if (repo.getPhotographerById(id)!=null) {
+			Photographer photographer = repo.getPhotographerById(id);
 			repo.delete(photographer);
 			return photographer;
 		} else {
@@ -48,9 +48,9 @@ public class PhotographerDao {
 		}
 	}
 
-	public Photographer getPhotographerById(int id) {
-		if (repo.findById(id).isPresent()) {
-			return repo.findById(id).get();
+	public Photographer getPhotographerById(String id) {
+		if (repo.getPhotographerById(id)!=null) {
+			return repo.getPhotographerById(id);
 		} else {
 			return null;
 		}

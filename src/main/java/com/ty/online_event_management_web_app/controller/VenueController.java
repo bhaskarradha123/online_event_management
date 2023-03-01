@@ -38,8 +38,7 @@ public class VenueController {
 	@ApiOperation(value = "update Venue", notes = "Api is used to update Venue with given Venue id")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully updated "),
 			@ApiResponse(code = 404, message = "Id not Found for the given Venue Id") })
-	public ResponseEntity<ResponseStructure<Venue>> updateVenue(@RequestParam String id,
-			@Valid @RequestBody Venue venue) {
+	public ResponseEntity<ResponseStructure<Venue>> updateVenue(@RequestParam String id, @Valid @RequestBody Venue venue) {
 		return service.updateVenue(id, venue);
 	}
 
@@ -57,6 +56,15 @@ public class VenueController {
 			@ApiResponse(code = 404, message = " id  is not Found for the given Venue id") })
 	public ResponseEntity<ResponseStructure<Venue>> getVenueById(@RequestParam String id) {
 		return service.getVenueById(id);
+	}
+	
+	
+	@GetMapping("/venuebill")
+	@ApiOperation(value = "display venue bill", notes = "Api is used to display venuebill with given venuebill id")
+	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
+		@ApiResponse(code=404,message=" id  is not Found for the given venuebill id")})
+	public ResponseEntity<ResponseStructure<Double>> getVenueById(@RequestParam String id,@RequestParam int days) {
+		return service.getVenueBillById(id, days);
 	}
 
 }

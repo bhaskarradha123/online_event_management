@@ -1,5 +1,7 @@
 package com.ty.online_event_management_web_app.dao;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.ty.online_event_management_web_app.dto.MakeUp;
@@ -28,9 +30,9 @@ public class MakeUpDao {
 
 	}
 
-	public MakeUp updateMakeUp(MakeUp makeUp, int id) {
-		if (repo.findById(id).isPresent()) {
-			MakeUp makeUpdb = repo.findById(id).get();
+	public MakeUp updateMakeUp(MakeUp makeUp, String id) {
+		if (repo.getMakeUpById(id)!=null) {
+			MakeUp makeUpdb = repo.getMakeUpById(id);
 			makeUp.setId(id);
 			makeUp.setOrganizer(makeUpdb.getOrganizer());
 			return repo.save(makeUp);
@@ -39,9 +41,9 @@ public class MakeUpDao {
 		}
 	}
 
-	public MakeUp deleteMakeUp(int id) {
-		if (repo.findById(id).isPresent()) {
-			MakeUp makeUp = repo.findById(id).get();
+	public MakeUp deleteMakeUp(String id) {
+		if (repo.getMakeUpById(id)!=null) {
+			MakeUp makeUp = repo.getMakeUpById(id);
 			repo.delete(makeUp);
 			return makeUp;
 		} else {
@@ -49,14 +51,17 @@ public class MakeUpDao {
 		}
 	}
 
-	public MakeUp getMakeUpById(int id) {
+	public MakeUp getMakeUpById(String id) {
 
-		if (repo.findById(id).isPresent()) {
+		if (repo.getMakeUpById(id)!=null) {
 
-			return repo.findById(id).get();
+			return repo.getMakeUpById(id);
 		} else {
 			return null;
 		}
 	}
+	
+	
+	
 
 }

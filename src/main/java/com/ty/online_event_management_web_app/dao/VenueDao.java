@@ -29,9 +29,8 @@ public class VenueDao {
 	}
 
 	public Venue updateVenue(Venue venue, String id) {
-		Venue venuedb = repo.getVenueById(id);
-		if (venuedb != null) {
-
+		if (repo.getVenueById(id)!=null) {
+			Venue venuedb = repo.getVenueById(id);
 			venue.setOrganizer(venuedb.getOrganizer());
 			venue.setId(id);
 			return repo.save(venue);
@@ -41,19 +40,19 @@ public class VenueDao {
 	}
 
 	public Venue deleteVenue(String id) {
-		Venue venuedb = repo.getVenueById(id);
-		if (venuedb != null) {
-			repo.delete(venuedb);
-
-			return venuedb;
+		if (repo.getVenueById(id)!=null) {
+			Venue venue = repo.getVenueById(id);
+			repo.delete(venue);
+			return venue;
 		} else {
 			return null;
 		}
 	}
 
 	public Venue getVenueById(String id) {
-		Venue venue = repo.getVenueById(id);
-		if (venue != null) {
+
+		if (repo.getVenueById(id)!=null) {
+			Venue venue = repo.getVenueById(id);
 			return venue;
 		} else {
 			return null;

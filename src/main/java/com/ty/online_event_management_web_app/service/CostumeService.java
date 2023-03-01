@@ -2,6 +2,8 @@ package com.ty.online_event_management_web_app.service;
 
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,10 @@ import org.springframework.stereotype.Service;
 import com.ty.online_event_management_web_app.dao.CostumeDao;
 import com.ty.online_event_management_web_app.dao.OrganizerDao;
 import com.ty.online_event_management_web_app.dto.Costume;
-import com.ty.online_event_management_web_app.dto.Menu;
 import com.ty.online_event_management_web_app.dto.Organizer;
-import com.ty.online_event_management_web_app.exception.IdNotFoundByBandException;
 import com.ty.online_event_management_web_app.exception.IdNotFoundByCostumeException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByCostumeServiceException;
-import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByMenuServiceException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
 @Service
@@ -34,17 +34,19 @@ public class CostumeService {
 
 		Organizer organizer = organizerDao.getOrganizerByEmail(email);
 		if (organizer != null) {
+			
+			List<Costume>list=dao.saveCostume(costume, email);
 			ResponseStructure<List<Costume>> responseStructure = new ResponseStructure<>();
 			responseStructure.setMessage("Costume Is Saved Sucessfully");
 			responseStructure.setStatus(HttpStatus.CREATED.value());
-			responseStructure.setData(dao.saveCostume(costume, email));
+			responseStructure.setData(list);
 			return new ResponseEntity<ResponseStructure<List<Costume>>>(responseStructure, HttpStatus.CREATED);
 		} else {
 			throw new NoSuchElementFoundByCostumeServiceException();
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Costume>> updateCostume(Costume costume, int id) {
+	public ResponseEntity<ResponseStructure<Costume>> updateCostume(Costume costume, String id) {
 
 		Costume costumedb = costumeDao.getCostumeById(id);
 		if (costumedb != null) {
@@ -58,7 +60,7 @@ public class CostumeService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Costume>> deleteCostume(int id) {
+	public ResponseEntity<ResponseStructure<Costume>> deleteCostume(String id) {
 
 		Costume costumedb = costumeDao.getCostumeById(id);
 		if (costumedb != null) {
@@ -72,7 +74,7 @@ public class CostumeService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Costume>> getCostumeById(int id) {
+	public ResponseEntity<ResponseStructure<Costume>> getCostumeById(String id) {
 
 		Costume costumedb = costumeDao.getCostumeById(id);
 		if (costumedb != null) {
@@ -86,19 +88,20 @@ public class CostumeService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<List<Costume>>> getAllCostumeByEmail(String email) {
-		List<Costume> costumedb = dao.getCostumeByEmail(email);
-		ResponseStructure<List<Costume>> responseStructure = new ResponseStructure<>();
+	public ResponseEntity<ResponseStructure< List<Costume>>> getCostumeListById(String email) {
+	    List<Costume>	 costumedb = dao.getCostumeByEmail(email);
+		ResponseStructure< List<Costume>> responseStructure = new ResponseStructure<>();
 		if (costumedb != null) {
-			responseStructure.setMessage("Sucessfully Menu  is Found");
+
+			responseStructure.setMessage("Sucessfully Costume  is Found");
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setData(costumedb);
-			return new ResponseEntity<ResponseStructure<List<Costume>>>(responseStructure, HttpStatus.OK);
+			return new ResponseEntity<ResponseStructure< List<Costume>>>(responseStructure, HttpStatus.OK);
 		} else {
-			throw new NoSuchElementFoundByMenuServiceException(
-					"Costume is not found for Organizer Email " + email + " to display");
-		}
+			throw new NoSuchElementFoundByOrganizerException(
+					"Organizer is not found for given email " + email + " to show list");		}
 
 	}
-
+	
+	
 }

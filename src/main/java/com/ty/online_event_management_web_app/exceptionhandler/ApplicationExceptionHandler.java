@@ -1,10 +1,21 @@
 package com.ty.online_event_management_web_app.exceptionhandler;
 
-import org.springframework.http.HttpStatus;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.*;
 
+import javax.validation.ConstraintViolationException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.ty.online_event_management_web_app.exception.IdNotFoundByBandException;
 import com.ty.online_event_management_web_app.exception.IdNotFoundByCostumeException;
@@ -20,10 +31,14 @@ import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByDeco
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByMakeUpServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByMenuServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerLoginException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerSignUpException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByPhotographerServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByPurohithServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByUserException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByUserLoginException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByUserOccassionServiceException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByUserSignUpException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByVenuexception;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
@@ -198,7 +213,33 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		structure.setData("No Such Element is Found In Organizer Entity beacuse email is not Exist");
 		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
 	}
+	
+	
+	// Organizerlogin
+		@ExceptionHandler(NoSuchElementFoundByOrganizerLoginException.class)
+		public ResponseEntity<ResponseStructure<String>> noSuchElementException(
+				NoSuchElementFoundByOrganizerLoginException exception) {
+			ResponseStructure<String> structure = new ResponseStructure<String>();
 
+			structure.setMessage(exception.getMessage());
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+			structure.setData("pls enter the correct password to login");
+			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+		}
+      
+		// userlogin
+				@ExceptionHandler(NoSuchElementFoundByUserLoginException.class)
+				public ResponseEntity<ResponseStructure<String>> noSuchElementException(
+						NoSuchElementFoundByUserLoginException exception) {
+					ResponseStructure<String> structure = new ResponseStructure<String>();
+
+					structure.setMessage(exception.getMessage());
+					structure.setStatus(HttpStatus.NOT_FOUND.value());
+					structure.setData("pls enter the correct password to login");
+					return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+				}
+		
+		
 	// Photographer
 	@ExceptionHandler(NoSuchElementFoundByPhotographerServiceException.class)
 	public ResponseEntity<ResponseStructure<String>> noSuchElementException(
@@ -246,6 +287,32 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		structure.setData("No Such Element is Found In UserOccasion Entity beacuse email is not Exist");
 		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
 	}
+	
+	// UserSignup
+	@ExceptionHandler(NoSuchElementFoundByUserSignUpException.class)
+	public ResponseEntity<ResponseStructure<String>> noSuchElementException(
+			NoSuchElementFoundByUserSignUpException exception) {
+		ResponseStructure<String> structure = new ResponseStructure<String>();
+
+		structure.setMessage(exception.getMessage());
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		structure.setData("Already account is exist to the email pls provide a new email");
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+	}
+	
+	
+	// UserSignup
+		@ExceptionHandler(NoSuchElementFoundByOrganizerSignUpException.class)
+		public ResponseEntity<ResponseStructure<String>> noSuchElementException(
+				NoSuchElementFoundByOrganizerSignUpException exception) {
+			ResponseStructure<String> structure = new ResponseStructure<String>();
+
+			structure.setMessage(exception.getMessage());
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+			structure.setData("Already account is exist to the email pls provide a new email");
+			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+		}
+	
 
 	// Venue
 
@@ -260,39 +327,39 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
 	}
 
-	//
-//		@Override
-//		protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-//				HttpHeaders headers, HttpStatus status, WebRequest request) {
-//			 List< ObjectError> error =ex.getAllErrors();
-//			 Map< String , String> map=new HashMap<String, String>( );
-//			 for(ObjectError objectError: error)
-//			 {
-//				 String filedName=((FieldError)objectError).getField();
-//				 String message=((FieldError)objectError).getDefaultMessage();
-//				 map.put(filedName, message);
-//				 
-//			 }
-//			 return new ResponseEntity<Object> (map,HttpStatus.BAD_REQUEST);
-//		}
+	
+		@Override
+		protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+				HttpHeaders headers, HttpStatus status, WebRequest request) {
+			 List< ObjectError> error =ex.getAllErrors();
+			 Map< String , String> map=new HashMap<String, String>( );
+			 for(ObjectError objectError: error)
+			 {
+				 String filedName=((FieldError)objectError).getField();
+				 String message=((FieldError)objectError).getDefaultMessage();
+				 map.put(filedName, message);
+				 
+			 }
+			 return new ResponseEntity<Object> (map,HttpStatus.BAD_REQUEST);
+		}
 
-//		    @ExceptionHandler(ConstraintViolationException.class)
-//		    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException ex) {
-//		        StringBuilder errorMessage = new StringBuilder();
-//		        ex.getConstraintViolations().forEach(violation ->
-//		                errorMessage.append(violation.getMessage()).append("; "));
-//		        return ResponseEntity.badRequest().body(errorMessage.toString());
-//		    }
+		    @ExceptionHandler(ConstraintViolationException.class)
+		    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException ex) {
+		        StringBuilder errorMessage = new StringBuilder();
+		        ex.getConstraintViolations().forEach(violation ->
+		                errorMessage.append(violation.getMessage()).append("; "));
+		        return ResponseEntity.badRequest().body(errorMessage.toString());
+		    }
 
-//		 @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-//		 public ResponseEntity<ResponseStructure<String>> sqlintegrityconstraintViolation(SQLIntegrityConstraintViolationException ex){
-//			 
-//			 ResponseStructure<String> structure = new ResponseStructure<String>();
-	//
-//				structure.setMessage(ex.getMessage());
-//				structure.setStatus(HttpStatus.NOT_FOUND.value());
-//				structure.setData("Cannot delete or update a parent row: a foreign key constraint fails.");
-//				return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
-	//
+		 @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+		 public ResponseEntity<ResponseStructure<String>> sqlintegrityconstraintViolation(SQLIntegrityConstraintViolationException ex){
+			 
+			 ResponseStructure<String> structure = new ResponseStructure<String>();
+	
+				structure.setMessage(ex.getMessage());
+				structure.setStatus(HttpStatus.NOT_FOUND.value());
+				structure.setData("Cannot delete or update a parent row: a foreign key constraint fails.");
+				return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+		 }
 
 }
