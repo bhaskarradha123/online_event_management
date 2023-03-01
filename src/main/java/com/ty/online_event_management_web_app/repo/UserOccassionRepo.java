@@ -10,6 +10,9 @@ import com.ty.online_event_management_web_app.dto.UserOccassion;
 public interface UserOccassionRepo extends JpaRepository<UserOccassion, Integer> {
 
 	@Query("select a from UserOccassion a where a.user.email=?1")
-    public List<UserOccassion> getListOfEmail(String email);
-	
+	public List<UserOccassion> getListOfEmail(String email);
+
+	@Query("select o from UserOccassion o where o.id=?1")
+	public UserOccassion getUserOcassionById(String id);
+
 }

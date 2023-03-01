@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.ty.online_event_management_web_app.dto.Organizer;
 import com.ty.online_event_management_web_app.dto.Photographer;
 import com.ty.online_event_management_web_app.repo.photographyRepo;
+
 @Repository
 public class PhotographerDao {
 	@Autowired
@@ -28,8 +29,9 @@ public class PhotographerDao {
 
 	public Photographer updatePhotographer(Photographer photographer, int id) {
 		if (repo.findById(id).isPresent()) {
+			Photographer photographerdb = repo.findById(id).get();
 			photographer.setId(id);
-
+			photographer.setOrganizer(photographerdb.getOrganizer());
 			return repo.save(photographer);
 		} else {
 			return null;
@@ -47,9 +49,8 @@ public class PhotographerDao {
 	}
 
 	public Photographer getPhotographerById(int id) {
-		Photographer photographer = repo.findById(id).get();
-		if (photographer != null) {
-			return photographer;
+		if (repo.findById(id).isPresent()) {
+			return repo.findById(id).get();
 		} else {
 			return null;
 		}

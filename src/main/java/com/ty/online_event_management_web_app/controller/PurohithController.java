@@ -37,28 +37,28 @@ public class PurohithController {
 		return service.savePurohith(purohith, email);
 	}
            
-	@PutMapping("purohith")
-	@ApiOperation(value = "update purohith", notes = "Api is used to update purohith with given purohith id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully updated "),
-		@ApiResponse(code=404,message="Id not Found for the given purohith Id")})
-	public ResponseEntity<ResponseStructure<Purohith>> updatePurohith(@RequestParam int id,@Valid@RequestBody Purohith purohith) {
-		return service.updatePurohith(id, purohith);
-	}
-
-	@DeleteMapping("/purohith")
-	@ApiOperation(value = "delete purohith", notes = "Api is used to delete purohith with given purohith id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully deleted "),
-		@ApiResponse(code=404,message="id is  not Found for the given purohith id")})
-	public ResponseEntity<ResponseStructure<Purohith>> deletePurohith(@RequestParam int id) {
-		return service.deletePurohith(id);
-	}
-
-	@GetMapping("/purohith")
-	@ApiOperation(value = "display purohith", notes = "Api is used to display purohith with given purohith id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
-		@ApiResponse(code=404,message=" id  is not Found for the given purohith id")})
-	public ResponseEntity<ResponseStructure<Purohith>> getPurohithById(@RequestParam int id) {
-		return service.getPurohithById(id);
-	}
+//	@PutMapping("purohith")
+//	@ApiOperation(value = "update purohith", notes = "Api is used to update purohith with given purohith id")
+//	@ApiResponses({@ApiResponse(code=201,message="Sucessfully updated "),
+//		@ApiResponse(code=404,message="Id not Found for the given purohith Id")})
+//	public ResponseEntity<ResponseStructure<Purohith>> updatePurohith(@RequestParam int id,@Valid@RequestBody Purohith purohith) {
+//		return service.updatePurohith(id, purohith);
+//	}
+//
+//	@DeleteMapping("/purohith")
+//	@ApiOperation(value = "delete purohith", notes = "Api is used to delete purohith with given purohith id")
+//	@ApiResponses({@ApiResponse(code=201,message="Sucessfully deleted "),
+//		@ApiResponse(code=404,message="id is  not Found for the given purohith id")})
+//	public ResponseEntity<ResponseStructure<Purohith>> deletePurohith(@RequestParam int id) {
+//		return service.deletePurohith(id);
+//	}
+//
+//	@GetMapping("/purohith")
+//	@ApiOperation(value = "display purohith", notes = "Api is used to display purohith with given purohith id")
+//	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
+//		@ApiResponse(code=404,message=" id  is not Found for the given purohith id")})
+//	public ResponseEntity<ResponseStructure<Purohith>> getPurohithById(@RequestParam int id) {
+//		return service.getPurohithById(id);
+//	}
 
 }

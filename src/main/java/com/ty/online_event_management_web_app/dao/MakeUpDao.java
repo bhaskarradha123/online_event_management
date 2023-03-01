@@ -30,7 +30,9 @@ public class MakeUpDao {
 
 	public MakeUp updateMakeUp(MakeUp makeUp, int id) {
 		if (repo.findById(id).isPresent()) {
+			MakeUp makeUpdb = repo.findById(id).get();
 			makeUp.setId(id);
+			makeUp.setOrganizer(makeUpdb.getOrganizer());
 			return repo.save(makeUp);
 		} else {
 			return null;
@@ -47,10 +49,11 @@ public class MakeUpDao {
 		}
 	}
 
-	public MakeUp getMAkeUpById(int id) {
-		MakeUp makeUp = repo.findById(id).get();
-		if (makeUp != null) {
-			return makeUp;
+	public MakeUp getMakeUpById(int id) {
+
+		if (repo.findById(id).isPresent()) {
+
+			return repo.findById(id).get();
 		} else {
 			return null;
 		}

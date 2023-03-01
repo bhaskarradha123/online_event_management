@@ -25,17 +25,17 @@ import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByMenu
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByPhotographerServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByPurohithServiceException;
-import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByVenueServiceException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByVenuexception;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
 @Service
-public class OrganizerService {  
+public class OrganizerService {
 	@Autowired
 	private OrganizerDao dao;
 
 	public ResponseEntity<ResponseStructure<Organizer>> saveOrganizer(Organizer organizer) {
 		ResponseStructure<Organizer> responseStructure = new ResponseStructure<>();
-		responseStructure.setMessage("User Is Saved Sucessfully");
+		responseStructure.setMessage("Organizer Is Saved Sucessfully");
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setData(dao.saveOrganizer(organizer));
 		return new ResponseEntity<ResponseStructure<Organizer>>(responseStructure, HttpStatus.CREATED);
@@ -86,132 +86,19 @@ public class OrganizerService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<List<Band>>> getListOfBand(String service) {
-		List<Band> list = dao.getListOfBand(service);
-		ResponseStructure<List<Band>> responseStructure = new ResponseStructure<>();
+	public ResponseEntity<ResponseStructure<List<Organizer>>> getListOfServices(String service) {
+		List<Organizer> list = dao.getListOfServices(service);
+		ResponseStructure<List<Organizer>> responseStructure = new ResponseStructure<>();
 		if (list != null) {
 
 			responseStructure.setMessage("Sucessfully service " + service + " is Found");
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Band>>>(responseStructure, HttpStatus.OK);
+			return new ResponseEntity<ResponseStructure<List<Organizer>>>(responseStructure, HttpStatus.OK);
 		} else {
 
 			throw new NoSuchElementFoundByBandServiceException(service + " service is not found");
 		}
 
 	}
-	
-	public ResponseEntity<ResponseStructure<List<Costume>>> getListOfCostume(String service) {
-		List<Costume> list = dao.getListOfCostume(service);
-		ResponseStructure<List<Costume>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Costume>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByCostumeServiceException(service + " service is not found");
-		}
-
-	}
-	
-	public ResponseEntity<ResponseStructure<List<Decoration>>> getListOfDecoration(String service) {
-		List<Decoration> list = dao.getListOfDecoration(service);
-		ResponseStructure<List<Decoration>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Decoration>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByDecorationServiceException(service + " service is not found");
-		}
-
-	}
-	
-	public ResponseEntity<ResponseStructure<List<MakeUp>>> getListOfMakeUp(String service) {
-		List<MakeUp> list = dao.getListOfMakeUp(service);
-		ResponseStructure<List<MakeUp>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<MakeUp>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByMakeUpServiceException(service + " service is not found");
-		}
-
-	}
-	public ResponseEntity<ResponseStructure<List<Menu>>> getListOfMenu(String service) {
-		List<Menu> list = dao.getListOfMenu(service);
-		ResponseStructure<List<Menu>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Menu>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByMenuServiceException(service + " service is not found");
-		}
-
-	}
-	public ResponseEntity<ResponseStructure<List<Photographer>>> getListOfPhotographer(String service) {
-		List<Photographer> list = dao.getListOfPhotography(service);
-		ResponseStructure<List<Photographer>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Photographer>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByPhotographerServiceException(service + " service is not found");
-		}
-
-	}
-	public ResponseEntity<ResponseStructure<List<Purohith>>> getListOfPurohith(String service) {
-		List<Purohith> list = dao.getListOfPurohit(service);
-		ResponseStructure<List<Purohith>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Purohith>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByPurohithServiceException(service + " service is not found");
-		}
-
-	}
-	public ResponseEntity<ResponseStructure<List<Venue>>> getListOfVenue(String service) {
-		List<Venue> list = dao.getListOfVenue(service);
-		ResponseStructure<List<Venue>> responseStructure = new ResponseStructure<>();
-		if (list != null) {
-
-			responseStructure.setMessage("Sucessfully service " + service + " is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(list);
-			return new ResponseEntity<ResponseStructure<List<Venue>>>(responseStructure, HttpStatus.OK);
-		} else {
-
-			throw new NoSuchElementFoundByVenueServiceException(service + " service is not found");
-		}
-
-	}
-	
-	
-	
-	
-
 }

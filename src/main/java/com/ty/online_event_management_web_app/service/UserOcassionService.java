@@ -14,6 +14,7 @@ import com.ty.online_event_management_web_app.dto.MakeUp;
 import com.ty.online_event_management_web_app.dto.Organizer;
 import com.ty.online_event_management_web_app.dto.User;
 import com.ty.online_event_management_web_app.dto.UserOccassion;
+import com.ty.online_event_management_web_app.exception.IdNotFoundByUserOccassionException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByUserOccassionServiceException;
 import com.ty.online_event_management_web_app.repo.CostumeRepo;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
@@ -32,7 +33,7 @@ public class UserOcassionService {
 		User user = customerDao.getUserByEmail(email);
 		if (user != null) {
 			ResponseStructure<UserOccassion> responseStructure = new ResponseStructure<>();
-			responseStructure.setMessage("Costume Is Saved Sucessfully");
+			responseStructure.setMessage("UserOccassion Is Saved Sucessfully");
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setData(dao.saveOccassion(occassion, email));
 			return new ResponseEntity<ResponseStructure<UserOccassion>>(responseStructure, HttpStatus.CREATED);
@@ -82,7 +83,7 @@ public class UserOcassionService {
 			return new ResponseEntity<ResponseStructure<UserOccassion>>(responseStructure, HttpStatus.OK);
 		} else {
 
-			throw new NoSuchElementFoundByUserOccassionServiceException();
+			throw new IdNotFoundByUserOccassionException();
 		}
 	}
 

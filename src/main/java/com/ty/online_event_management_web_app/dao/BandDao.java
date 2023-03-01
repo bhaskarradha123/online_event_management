@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ty.online_event_management_web_app.dto.Band;
 import com.ty.online_event_management_web_app.dto.Organizer;
- 
+
 import com.ty.online_event_management_web_app.repo.BandRepo;
 
 @Repository
@@ -32,8 +32,9 @@ public class BandDao {
 
 	public Band updateBand(Band band, int id) {
 		if (repo.findById(id).isPresent()) {
+			Band banddb = repo.findById(id).get();
 			band.setId(id);
-
+			band.setOrganizer(banddb.getOrganizer());
 			return repo.save(band);
 		} else {
 			return null;
@@ -51,9 +52,10 @@ public class BandDao {
 	}
 
 	public Band getBandById(int id) {
-		Band band = repo.findById(id).get();
-		if (band != null) {
-			return band;
+
+		if (repo.findById(id).isPresent()) {
+			return repo.findById(id).get();
+
 		} else {
 			return null;
 		}
