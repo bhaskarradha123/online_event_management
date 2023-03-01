@@ -22,12 +22,11 @@ public class CostumeDao {
 	public List<Costume> saveCostume(List<Costume> costume, String email) {
 		Organizer organizer = dao.getOrganizerByEmail(email);
 		if (organizer != null) {
-			List<Costume> costumedb = new ArrayList<>();
-			for (Costume c : costumedb) {
+			for (Costume c : costume) {
 				c.setOrganizer(organizer);
 				repo.save(c);
 			}
-			return costumedb;
+			return costume;
 		} else {
 			return null;
 		}
@@ -36,7 +35,9 @@ public class CostumeDao {
 	public Costume UpdateCostume(Costume costume, int id) {
 
 		if (repo.findById(id).isPresent()) {
+			Costume costumedb = repo.findById(id).get();
 			costume.setId(id);
+			costume.setOrganizer(costumedb.getOrganizer());
 			return repo.save(costume);
 		} else {
 			return null;
@@ -57,8 +58,8 @@ public class CostumeDao {
 	public Costume getCostumeById(int id) {
 
 		if (repo.findById(id).isPresent()) {
-			Costume costume = repo.findById(id).get();
-			return costume;
+			return repo.findById(id).get();
+
 		} else {
 			return null;
 		}

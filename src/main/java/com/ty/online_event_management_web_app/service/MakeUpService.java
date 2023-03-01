@@ -67,7 +67,7 @@ public class MakeUpService {
 	}
 
 	public ResponseEntity<ResponseStructure<MakeUp>> getMakeUpById(int id) {
-		MakeUp makeUpdb = dao.getMAkeUpById(id);
+		MakeUp makeUpdb = dao.getMakeUpById(id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
 

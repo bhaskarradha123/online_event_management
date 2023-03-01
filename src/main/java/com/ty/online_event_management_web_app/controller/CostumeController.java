@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ty.online_event_management_web_app.dto.Costume;
+import com.ty.online_event_management_web_app.dto.Menu;
 import com.ty.online_event_management_web_app.service.CostumeService;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
@@ -59,6 +60,14 @@ public class CostumeController {
 			@ApiResponse(code = 404, message = " Id is not Found for the given Costume Id") })
 	public ResponseEntity<ResponseStructure<Costume>> getCostumeById(@RequestParam int id) {
 		return service.getCostumeById(id);
+	}
+
+	@GetMapping("/costumes")
+	@ApiOperation(value = "display Costumess", notes = "Api is used to display Costumes with given Organizer email ")
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully found to display "),
+			@ApiResponse(code = 404, message = " id  is not Found for the given Costume email") })
+	public ResponseEntity<ResponseStructure<List<Costume>>> getMenuById(@RequestParam String email) {
+		return service.getAllCostumeByEmail(email);
 	}
 
 }

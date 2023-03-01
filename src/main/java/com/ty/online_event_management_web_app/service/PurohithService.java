@@ -36,50 +36,50 @@ public class PurohithService {
 
 	}
 
-	public ResponseEntity<ResponseStructure<Purohith>> updatePurohith(int id, Purohith purohith) {
-		Purohith purohithdb = dao.updatePurohith(purohith, id);
-		ResponseStructure<Purohith> responseStructure = new ResponseStructure<>();
-		if (purohithdb != null) {
-
-			responseStructure.setMessage("Sucessfully Purohith is Update");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(purohith);
-			return new ResponseEntity<ResponseStructure<Purohith>>(responseStructure, HttpStatus.OK);
-		} else {
-			throw new IdNotFoundByPurohithException("Purohith is not found for your id " + id + " to update");
-
-		}
-	}
-
-	public ResponseEntity<ResponseStructure<Purohith>> deletePurohith(int id) {
-		Purohith purohithdb = dao.deletePurohith(id);
-		ResponseStructure<Purohith> responseStructure = new ResponseStructure<>();
-		if (purohithdb != null) {
-
-			responseStructure.setMessage("Sucessfully Purohith is deleted");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(purohithdb);
-			return new ResponseEntity<ResponseStructure<Purohith>>(responseStructure, HttpStatus.OK);
-		} else {
-			throw new IdNotFoundByPurohithException("Purohith is not found for your id " + id + " to delete");
-
-		}
-	}
-
-	public ResponseEntity<ResponseStructure<Purohith>> getPurohithById(int id) {
-		Purohith purohithdb = dao.getPurohithById(id);
-		ResponseStructure<Purohith> responseStructure = new ResponseStructure<>();
-		if (purohithdb != null) {
-
-			responseStructure.setMessage("Sucessfully Purohith  is Found");
-			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(purohithdb);
-			return new ResponseEntity<ResponseStructure<Purohith>>(responseStructure, HttpStatus.OK);
-		} else {
-			throw new NoSuchElementFoundByPurohithServiceException(
-					"Purohith is not found for your id " + id + " to display");
-		}
-
-	}
+//	public ResponseEntity<ResponseStructure<Purohith>> updatePurohith(int id, Purohith purohith) {
+//		Purohith purohithdb = dao.updatePurohith(purohith, id);
+//		ResponseStructure<Purohith> responseStructure = new ResponseStructure<>();
+//		if (purohithdb != null) {
+//
+//			responseStructure.setMessage("Sucessfully Purohith is Update");
+//			responseStructure.setStatus(HttpStatus.OK.value());
+//			responseStructure.setData(purohith);
+//			return new ResponseEntity<ResponseStructure<Purohith>>(responseStructure, HttpStatus.OK);
+//		} else {
+//			throw new IdNotFoundByPurohithException("Purohith is not found for your id " + id + " to update");
+//
+//		}
+//	}
+//
+//	public ResponseEntity<ResponseStructure<Purohith>> deletePurohith(int id) {
+//		Purohith purohithdb = dao.deletePurohith(id);
+//		ResponseStructure<Purohith> responseStructure = new ResponseStructure<>();
+//		if (purohithdb != null) {
+//
+//			responseStructure.setMessage("Sucessfully Purohith is deleted");
+//			responseStructure.setStatus(HttpStatus.OK.value());
+//			responseStructure.setData(purohithdb);
+//			return new ResponseEntity<ResponseStructure<Purohith>>(responseStructure, HttpStatus.OK);
+//		} else {
+//			throw new IdNotFoundByPurohithException("Purohith is not found for your id " + id + " to delete");
+//
+//		}
+//	}
+//
+//	public ResponseEntity<ResponseStructure<Purohith>> getPurohithById(int id) {
+//		Purohith purohithdb = dao.getPurohithById(id);
+//		ResponseStructure<Purohith> responseStructure = new ResponseStructure<>();
+//		if (purohithdb != null) {
+//
+//			responseStructure.setMessage("Sucessfully Purohith  is Found");
+//			responseStructure.setStatus(HttpStatus.OK.value());
+//			responseStructure.setData(purohithdb);
+//			return new ResponseEntity<ResponseStructure<Purohith>>(responseStructure, HttpStatus.OK);
+//		} else {
+//			throw new NoSuchElementFoundByPurohithServiceException(
+//					"Purohith is not found for your id " + id + " to display");
+//		}
+//
+//	}
 
 }

@@ -5,14 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.ty.online_event_management_web_app.dao.OrganizerDao;
 import com.ty.online_event_management_web_app.dao.VenueDao;
 import com.ty.online_event_management_web_app.dto.Organizer;
 import com.ty.online_event_management_web_app.dto.Venue;
 import com.ty.online_event_management_web_app.exception.IdNotFoundByBandException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
-import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByVenueServiceException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByVenuexception;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
 @Service
@@ -36,7 +35,7 @@ public class VenueService {
 					"Organizer is not found for given email " + email + " to save venue");
 	}
 
-	public ResponseEntity<ResponseStructure<Venue>> updateVenue(int id, Venue venue) {
+	public ResponseEntity<ResponseStructure<Venue>> updateVenue(String id, Venue venue) {
 		Venue venuedb = dao.updateVenue(venue, id);
 		ResponseStructure<Venue> responseStructure = new ResponseStructure<>();
 		if (venuedb != null) {
@@ -51,7 +50,7 @@ public class VenueService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Venue>> deleteVenue(int id) {
+	public ResponseEntity<ResponseStructure<Venue>> deleteVenue(String id) {
 		Venue venuedb = dao.deleteVenue(id);
 		ResponseStructure<Venue> responseStructure = new ResponseStructure<>();
 		if (venuedb != null) {
@@ -66,7 +65,7 @@ public class VenueService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Venue>> getVenueById(int id) {
+	public ResponseEntity<ResponseStructure<Venue>> getVenueById(String id) {
 		Venue venuedb = dao.getVenueById(id);
 		ResponseStructure<Venue> responseStructure = new ResponseStructure<>();
 		if (venuedb != null) {
@@ -76,7 +75,7 @@ public class VenueService {
 			responseStructure.setData(venuedb);
 			return new ResponseEntity<ResponseStructure<Venue>>(responseStructure, HttpStatus.OK);
 		} else {
-			throw new NoSuchElementFoundByVenueServiceException("Venue is not found for your id " + id + " to display");
+			throw new NoSuchElementFoundByVenuexception("Venue is not found for your id   to display");
 		}
 
 	}

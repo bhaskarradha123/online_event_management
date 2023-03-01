@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ty.online_event_management_web_app.dao.DecorationDao;
+import com.ty.online_event_management_web_app.dao.Decorationdao;
 import com.ty.online_event_management_web_app.dao.OrganizerDao;
 import com.ty.online_event_management_web_app.dto.Decoration;
 import com.ty.online_event_management_web_app.dto.Organizer;
@@ -19,7 +19,7 @@ import com.ty.online_event_management_web_app.util.ResponseStructure;
 @Service
 public class DecorationService {
 	@Autowired
-	private DecorationDao dao;
+	private Decorationdao dao;
 	@Autowired
 	private OrganizerDao organizerDao;
 
@@ -28,7 +28,7 @@ public class DecorationService {
 		Organizer organizer = organizerDao.getOrganizerByEmail(email);
 		if (organizer != null) {
 			ResponseStructure<List<Decoration>> responseStructure = new ResponseStructure<>();
-			responseStructure.setMessage("Decoration Is Saved Sucessfully");
+			responseStructure.setMessage("Menu Is Saved Sucessfully");
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setData(dao.saveDecoration(decoration, email));
 			return new ResponseEntity<ResponseStructure<List<Decoration>>>(responseStructure, HttpStatus.CREATED);
@@ -79,6 +79,22 @@ public class DecorationService {
 		} else {
 			throw new NoSuchElementFoundByDecorationServiceException(
 					"Decoration is not found for your id " + id + " to display");
+		}
+
+	}
+
+	public ResponseEntity<ResponseStructure<List<Decoration>>> getAllDecoratiosByEmail(String email) {
+		List<Decoration> decorationdb = dao.getlistOfDecorationByEmail(email);
+		ResponseStructure<List<Decoration>> responseStructure = new ResponseStructure<>();
+		if (decorationdb != null) {
+
+			responseStructure.setMessage("Sucessfully Decorations is Found");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(decorationdb);
+			return new ResponseEntity<ResponseStructure<List<Decoration>>>(responseStructure, HttpStatus.OK);
+		} else {
+			throw new NoSuchElementFoundByDecorationServiceException(
+					"Decoration is not found for your email " + email + " to display");
 		}
 
 	}

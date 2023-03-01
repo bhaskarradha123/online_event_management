@@ -38,7 +38,8 @@ public class VenueController {
 	@ApiOperation(value = "update Venue", notes = "Api is used to update Venue with given Venue id")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully updated "),
 			@ApiResponse(code = 404, message = "Id not Found for the given Venue Id") })
-	public ResponseEntity<ResponseStructure<Venue>> updateVenue(@RequestParam int id, @Valid @RequestBody Venue venue) {
+	public ResponseEntity<ResponseStructure<Venue>> updateVenue(@RequestParam String id,
+			@Valid @RequestBody Venue venue) {
 		return service.updateVenue(id, venue);
 	}
 
@@ -46,7 +47,7 @@ public class VenueController {
 	@ApiOperation(value = "delete Venue", notes = "Api is used to delete Venue with given Venue id")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully deleted "),
 			@ApiResponse(code = 404, message = "id is  not Found for the given Venue id") })
-	public ResponseEntity<ResponseStructure<Venue>> deleteVenue(@RequestParam int id) {
+	public ResponseEntity<ResponseStructure<Venue>> deleteVenue(@RequestParam String id) {
 		return service.deleteVenue(id);
 	}
 
@@ -54,7 +55,7 @@ public class VenueController {
 	@ApiOperation(value = "display Venue", notes = "Api is used to display Venue with given Venue id")
 	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully found to display "),
 			@ApiResponse(code = 404, message = " id  is not Found for the given Venue id") })
-	public ResponseEntity<ResponseStructure<Venue>> getVenueById(@RequestParam int id) {
+	public ResponseEntity<ResponseStructure<Venue>> getVenueById(@RequestParam String id) {
 		return service.getVenueById(id);
 	}
 

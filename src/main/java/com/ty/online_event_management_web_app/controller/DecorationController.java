@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ty.online_event_management_web_app.dto.Decoration;
+import com.ty.online_event_management_web_app.dto.Menu;
 import com.ty.online_event_management_web_app.service.DecorationService;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
@@ -26,40 +27,47 @@ import io.swagger.annotations.ApiResponses;
 public class DecorationController {
 	@Autowired
 	private DecorationService service;
-	
+
 	@PostMapping("/decoration")
-	@ApiOperation(value = "save Decoration", notes = "Api is used to save Decoration ")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully Created "),
-		@ApiResponse(code=404,message="email is  not Found for the given organizer email")})
-	public ResponseEntity<ResponseStructure<List<Decoration>>> saveDecoration(@Valid@RequestBody List<Decoration>decoration,@RequestParam String email) {
+	@ApiOperation(value = "save Menu", notes = "Api is used to save decoration ")
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully Created "),
+			@ApiResponse(code = 404, message = "email is  not Found for the given organizer email") })
+	public ResponseEntity<ResponseStructure<List<Decoration>>> saveMenu(@Valid @RequestBody List<Decoration> decoration,
+			@RequestParam String email) {
 		return service.saveDecoration(decoration, email);
 	}
-           
+
 	@PutMapping("decoration")
 	@ApiOperation(value = "update Decoration", notes = "Api is used to update Decoration with given Decoration id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully updated "),
-		@ApiResponse(code=404,message="Id not Found for the given Decoration Id")})
-	public ResponseEntity<ResponseStructure<Decoration>> updateDecoration(@RequestParam int id,@Valid@RequestBody Decoration decoration) {
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully updated "),
+			@ApiResponse(code = 404, message = "Id not Found for the given Decoration Id") })
+	public ResponseEntity<ResponseStructure<Decoration>> updateDecoration(@RequestParam int id,
+			@Valid @RequestBody Decoration decoration) {
 		return service.updateDecoration(id, decoration);
 	}
 
 	@DeleteMapping("/decoration")
 	@ApiOperation(value = "delete Decoration", notes = "Api is used to delete Decoration with given Decoration id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully deleted "),
-		@ApiResponse(code=404,message="id is  not Found for the given Decoration id")})
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully deleted "),
+			@ApiResponse(code = 404, message = "id is  not Found for the given Decoration id") })
 	public ResponseEntity<ResponseStructure<Decoration>> deleteDecoration(@RequestParam int id) {
 		return service.deleteDecoration(id);
 	}
 
 	@GetMapping("/decoration")
 	@ApiOperation(value = "display Decoration", notes = "Api is used to display Decoration with given Decoration id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
-		@ApiResponse(code=404,message=" id  is not Found for the given Decoration id")})
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully found to display "),
+			@ApiResponse(code = 404, message = " id  is not Found for the given Decoration id") })
 	public ResponseEntity<ResponseStructure<Decoration>> getDecorationById(@RequestParam int id) {
 		return service.getDecorationById(id);
 	}
 
-	
-	
+	@GetMapping("/decorations")
+	@ApiOperation(value = "display Decorations", notes = "Api is used to display Decoration with given Decorations ")
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully found to display "),
+			@ApiResponse(code = 404, message = " id  is not Found for the given Decoration id") })
+	public ResponseEntity<ResponseStructure<List<Decoration>>> getDecorationById(@RequestParam String email) {
+		return service.getAllDecoratiosByEmail(email);
+	}
 
 }

@@ -33,7 +33,7 @@ public class UserOcassionService {
 		User user = customerDao.getUserByEmail(email);
 		if (user != null) {
 			ResponseStructure<UserOccassion> responseStructure = new ResponseStructure<>();
-			responseStructure.setMessage("Costume Is Saved Sucessfully");
+			responseStructure.setMessage("UserOccassion Is Saved Sucessfully");
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setData(dao.saveOccassion(occassion, email));
 			return new ResponseEntity<ResponseStructure<UserOccassion>>(responseStructure, HttpStatus.CREATED);

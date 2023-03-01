@@ -27,10 +27,12 @@ public class MenuService {
 	public ResponseEntity<ResponseStructure<List<Menu>>> saveMenu(List<Menu> menu, String email) {
 		Organizer organizer = organizerDao.getOrganizerByEmail(email);
 		if (organizer != null) {
+			List<Menu> list = dao.saveMenu(menu, email);
+			System.out.println(list);
 			ResponseStructure<List<Menu>> responseStructure = new ResponseStructure<>();
 			responseStructure.setMessage("Menu Is Saved Sucessfully");
 			responseStructure.setStatus(HttpStatus.CREATED.value());
-			responseStructure.setData(dao.saveMenu(menu, email));
+			responseStructure.setData(list);
 			return new ResponseEntity<ResponseStructure<List<Menu>>>(responseStructure, HttpStatus.CREATED);
 		}
 		throw new NoSuchElementFoundByOrganizerException(
@@ -71,13 +73,27 @@ public class MenuService {
 		Menu menudb = dao.getMenuById(id);
 		ResponseStructure<Menu> responseStructure = new ResponseStructure<>();
 		if (menudb != null) {
-
 			responseStructure.setMessage("Sucessfully Menu  is Found");
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setData(menudb);
 			return new ResponseEntity<ResponseStructure<Menu>>(responseStructure, HttpStatus.OK);
 		} else {
 			throw new NoSuchElementFoundByMenuServiceException("Menu is not found for your id " + id + " to display");
+		}
+
+	}
+
+	public ResponseEntity<ResponseStructure<List<Menu>>> getAllMenuByEmail(String email) {
+		List<Menu> menudb = dao.getlistOfMenuByEmail(email);
+		ResponseStructure<List<Menu>> responseStructure = new ResponseStructure<>();
+		if (menudb != null) {
+			responseStructure.setMessage("Sucessfully Menu  is Found");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(menudb);
+			return new ResponseEntity<ResponseStructure<List<Menu>>>(responseStructure, HttpStatus.OK);
+		} else {
+			throw new NoSuchElementFoundByMenuServiceException(
+					"Menu is not found for Organizer Email " + email + " to display");
 		}
 
 	}
