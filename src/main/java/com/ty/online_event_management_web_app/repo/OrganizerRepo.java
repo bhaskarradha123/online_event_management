@@ -17,32 +17,10 @@ import com.ty.online_event_management_web_app.dto.Venue;
 
 public interface OrganizerRepo extends JpaRepository<Organizer, String> {
 
-	public Organizer getByEmail(String email);
+	public Organizer findByEmail(String email);
 
 	@Query("select o from Organizer o where o.service=?1")
-	public List<Venue> getVenueByOrganizerService(String service);
+	public List<Organizer> getServiceByOrganizerService(String service);
 
-	@Query("select o from Organizer o where o.service=?1")
-	public List<Photographer> getPhotographerByOrganizerService(String service);
-
-	@Query("select o from Organizer o where o.service=?1")
-	public List<Decoration> getDecorationByOrganizerService(String service);
-
-	@Query("select o from Organizer o where o.service=?1")
-	public List<MakeUp> getMakeUpByOrganizerService(String service);
-
-	@Query("select o from Organizer o where o.service=?1")
-	public List<Costume> getCostumeByOrganizerService(String service);
-
-	@Query("select o from Organizer o where o.service=?1")
-	public List<Band> getBandByOrganizerService(String service);
-
-	@Query("select o from Organizer o where o.service=?1")
-	public List<Purohith> getPurohithByOrganizerService(String service);
-
-	@Query("select o from Organizer o where o.service=?1")
-	public List<Menu> getMenuBYOrganizerService(String service);
-
-	public Organizer findByEmail(String email); 
 
 }

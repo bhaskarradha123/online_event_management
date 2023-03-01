@@ -1,6 +1,5 @@
 package com.ty.online_event_management_web_app.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +11,19 @@ import com.ty.online_event_management_web_app.repo.MenuRepo;
 
 @Repository
 public class MenuDao {
-    @Autowired
+	@Autowired
 	private MenuRepo repo;
-    @Autowired
-    private OrganizerDao dao;
+	@Autowired
+	private OrganizerDao dao;
+
 	public List<Menu> saveMenu(List<Menu> menu, String email) {
 		Organizer organizer = dao.getOrganizerByEmail(email);
 		if (organizer != null) {
-			List<Menu>menu2=new ArrayList<>();
 			for (Menu m : menu) {
 				m.setOrganizer(organizer);
 				repo.save(m);
 			}
-			return menu2;
+			return menu;
 		} else {
 			return null;
 		}
@@ -33,7 +32,9 @@ public class MenuDao {
 	public Menu UpdateMenu(Menu menu, int id) {
 
 		if (repo.findById(id).isPresent()) {
+			Menu menudb = repo.findById(id).get();
 			menu.setId(id);
+			menu.setOrganizer(menudb.getOrganizer());
 			return repo.save(menu);
 		} else {
 			return null;
@@ -54,8 +55,7 @@ public class MenuDao {
 	public Menu getMenuById(int id) {
 
 		if (repo.findById(id).isPresent()) {
-			Menu menu = repo.findById(id).get();
-			return menu;
+			return repo.findById(id).get();
 		} else {
 			return null;
 		}

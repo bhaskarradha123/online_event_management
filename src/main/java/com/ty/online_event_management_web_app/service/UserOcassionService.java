@@ -2,6 +2,7 @@ package com.ty.online_event_management_web_app.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,15 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.ty.online_event_management_web_app.dao.CustomerDao;
 import com.ty.online_event_management_web_app.dao.UserOccasionDao;
-import com.ty.online_event_management_web_app.dto.Costume;
-import com.ty.online_event_management_web_app.dto.MakeUp;
-import com.ty.online_event_management_web_app.dto.Organizer;
+
 import com.ty.online_event_management_web_app.dto.User;
 import com.ty.online_event_management_web_app.dto.UserOccassion;
-import com.ty.online_event_management_web_app.exception.IdNotFoundByMakeUpException;
-import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByCostumeServiceException;
+import com.ty.online_event_management_web_app.exception.IdNotFoundByUserOccassionException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByUserOccassionServiceException;
-import com.ty.online_event_management_web_app.repo.CostumeRepo;
+
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
 @Service
@@ -34,7 +32,7 @@ public class UserOcassionService {
 		User user = customerDao.getUserByEmail(email);
 		if (user != null) {
 			ResponseStructure<UserOccassion> responseStructure = new ResponseStructure<>();
-			responseStructure.setMessage("Costume Is Saved Sucessfully");
+			responseStructure.setMessage("Occassion Is Saved Sucessfully");
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setData(dao.saveOccassion(occassion, email));
 			return new ResponseEntity<ResponseStructure<UserOccassion>>(responseStructure, HttpStatus.CREATED);
@@ -43,7 +41,7 @@ public class UserOcassionService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<UserOccassion>> updateUserOcassion(int id, UserOccassion occassion) {
+	public ResponseEntity<ResponseStructure<UserOccassion>> updateUserOcassion(String id, UserOccassion occassion) {
 		UserOccassion occassiondb = dao.getOccassionById(id);
 		ResponseStructure<UserOccassion> responseStructure = new ResponseStructure<>();
 		if (occassiondb != null) {
@@ -58,7 +56,7 @@ public class UserOcassionService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<UserOccassion>> deleteUserOccassion(int id) {
+	public ResponseEntity<ResponseStructure<UserOccassion>> deleteUserOccassion(String id) {
 		UserOccassion occassiondb = dao.getOccassionById(id);
 		ResponseStructure<UserOccassion> responseStructure = new ResponseStructure<>();
 		if (occassiondb != null) {
@@ -73,7 +71,7 @@ public class UserOcassionService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<UserOccassion>> getUserOccassionById(int id) {
+	public ResponseEntity<ResponseStructure<UserOccassion>> getUserOccassionById(String id) {
 		UserOccassion occassiondb = dao.getOccassionById(id);
 		ResponseStructure<UserOccassion> responseStructure = new ResponseStructure<>();
 		if (occassiondb != null) {
@@ -84,7 +82,7 @@ public class UserOcassionService {
 			return new ResponseEntity<ResponseStructure<UserOccassion>>(responseStructure, HttpStatus.OK);
 		} else {
 
-			throw new NoSuchElementFoundByUserOccassionServiceException();
+			throw new IdNotFoundByUserOccassionException();
 		}
 	}
 

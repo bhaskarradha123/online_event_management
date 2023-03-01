@@ -1,6 +1,7 @@
 package com.ty.online_event_management_web_app.dao;
 
-import java.util.ArrayList;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,31 +23,32 @@ public class CostumeDao {
 	public List<Costume> saveCostume(List<Costume> costume, String email) {
 		Organizer organizer = dao.getOrganizerByEmail(email);
 		if (organizer != null) {
-			List<Costume> costumedb = new ArrayList<>();
-			for (Costume c : costumedb) {
+			for (Costume c : costume) {
 				c.setOrganizer(organizer);
 				repo.save(c);
 			}
-			return costumedb;
+			return costume;
 		} else {
 			return null;
 		}
 	}
 
-	public Costume UpdateCostume(Costume costume, int id) {
+	public Costume UpdateCostume(Costume costume, String id) {
 
-		if (repo.findById(id).isPresent()) {
+		if (repo.getCostumeById(id)!=null) {
+			Costume costumedb = repo.getCostumeById(id);
 			costume.setId(id);
+			costume.setOrganizer(costumedb.getOrganizer());
 			return repo.save(costume);
 		} else {
 			return null;
 		}
 	}
 
-	public Costume deleteCostume(int id) {
+	public Costume deleteCostume(String id) {
 
-		if (repo.findById(id).isPresent()) {
-			Costume costume = repo.findById(id).get();
+		if (repo.getCostumeById(id)!=null) {
+			Costume costume = repo.getCostumeById(id);
 			repo.delete(costume);
 			return costume;
 		} else {
@@ -54,11 +56,11 @@ public class CostumeDao {
 		}
 	}
 
-	public Costume getCostumeById(int id) {
+	public Costume getCostumeById(String id) {
 
-		if (repo.findById(id).isPresent()) {
-			Costume costume = repo.findById(id).get();
-			return costume;
+		if (repo.getCostumeById(id)!=null) {
+			return repo.getCostumeById(id);
+
 		} else {
 			return null;
 		}

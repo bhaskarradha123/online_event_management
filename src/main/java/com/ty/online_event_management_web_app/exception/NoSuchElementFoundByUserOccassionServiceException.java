@@ -1,8 +1,7 @@
 package com.ty.online_event_management_web_app.exception;
 
 public class NoSuchElementFoundByUserOccassionServiceException extends RuntimeException {
-
-	private String message = "id is not Found ";
+	private String message = "email is not Found ";
 
 	public String getMessage() {
 		return message;
@@ -15,7 +14,7 @@ public class NoSuchElementFoundByUserOccassionServiceException extends RuntimeEx
 
 	public NoSuchElementFoundByUserOccassionServiceException() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 }

@@ -1,19 +1,20 @@
 package com.ty.online_event_management_web_app.service;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
-import com.ty.online_event_management_web_app.dao.DecorationDao;
 import com.ty.online_event_management_web_app.dao.MakeUpDao;
 import com.ty.online_event_management_web_app.dao.OrganizerDao;
- 
 import com.ty.online_event_management_web_app.dto.MakeUp;
 import com.ty.online_event_management_web_app.dto.Organizer;
-import com.ty.online_event_management_web_app.exception.IdNotFoundByBandException;
 import com.ty.online_event_management_web_app.exception.IdNotFoundByMakeUpException;
+import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByMakeUpServiceException;
 import com.ty.online_event_management_web_app.exception.NoSuchElementFoundByOrganizerException;
 import com.ty.online_event_management_web_app.util.ResponseStructure;
 
@@ -38,7 +39,7 @@ public class MakeUpService {
 				"Organizer is not found for given email " + email + " to save band");
 	}
 
-	public ResponseEntity<ResponseStructure<MakeUp>> updateMakeUp(int id, MakeUp makeUp) {
+	public ResponseEntity<ResponseStructure<MakeUp>> updateMakeUp(String id, MakeUp makeUp) {
 		MakeUp makeUpdb = dao.updateMakeUp(makeUp, id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
@@ -53,7 +54,7 @@ public class MakeUpService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<MakeUp>> deleteMakeUp(int id) {
+	public ResponseEntity<ResponseStructure<MakeUp>> deleteMakeUp(String id) {
 		MakeUp makeUpdb = dao.deleteMakeUp(id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
@@ -68,8 +69,8 @@ public class MakeUpService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<MakeUp>> getMakeUpById(int id) {
-		MakeUp makeUpdb = dao.getMAkeUpById(id);
+	public ResponseEntity<ResponseStructure<MakeUp>> getMakeUpById(String id) {
+		MakeUp makeUpdb = dao.getMakeUpById(id);
 		ResponseStructure<MakeUp> responseStructure = new ResponseStructure<>();
 		if (makeUpdb != null) {
 
@@ -78,9 +79,29 @@ public class MakeUpService {
 			responseStructure.setData(makeUpdb);
 			return new ResponseEntity<ResponseStructure<MakeUp>>(responseStructure, HttpStatus.OK);
 		} else {
-			throw new IdNotFoundByMakeUpException("MakeUp is not found for your id " + id + " to display");
+			throw new NoSuchElementFoundByMakeUpServiceException(
+					"MakeUp is not found for your id " + id + " to display");
 		}
 
 	}
+	
+	
+	public ResponseEntity<ResponseStructure<Double>> getMakeUpBillById(String id) {
+		MakeUp makeUp=dao.getMakeUpById(id);
+		ResponseStructure<Double> responseStructure = new ResponseStructure<>();
+		if (makeUp != null) {
+
+			responseStructure.setMessage("Sucessfully MakeUpBill  is Generated");
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setData(makeUp.getPrice());
+			return new ResponseEntity<ResponseStructure<Double>>(responseStructure, HttpStatus.OK);
+		} else {
+			throw new NoSuchElementFoundByMakeUpServiceException("MakeUp is not found for your id " + id + " to generate MakeUpBill");
+		}
+
+	}
+	
+
+
 
 }

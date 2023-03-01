@@ -1,10 +1,9 @@
 package com.ty.online_event_management_web_app.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
- 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import javax.persistence.*;
+
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -14,8 +13,13 @@ import lombok.Data;
 public class Purohith {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purohith_seq")
+	@GenericGenerator(name = "purohith_seq", strategy = "com.ty.online_event_management_web_app.dto.CustomIdIdGenerator", parameters = {
+			@Parameter(name = CustomIdIdGenerator.INCREMENT_PARAM, value = "50"),
+			@Parameter(name = CustomIdIdGenerator.VALUE_PREFIX_PARAMETER, value = "purohith_"),
+			@Parameter(name = CustomIdIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+	private String id;
+
 	private String name;
 	private String occasion;
 	private String fees;

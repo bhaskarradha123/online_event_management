@@ -55,48 +55,11 @@ public class OrganizerDao {
 		}
 	}
 
-	public List<Menu> getListOfMenu(String service) {
+	public List<Organizer> getListOfServices(String service) {
 
-		List<Menu> menu = repo.getMenuBYOrganizerService(service);
+		List<Organizer> servicedb = repo.getServiceByOrganizerService(service);
 
-		return menu;
-
+		return servicedb;
 	}
 
-	public List<Venue> getListOfVenue(String service) {
-
-		List<Venue> venue = repo.getVenueByOrganizerService(service);
-
-		return venue;
-
-	}
-
-	public List<Purohith> getListOfPurohit(String service) {
-		List<Purohith> purohith = repo.getPurohithByOrganizerService(service);
-		return purohith;
-	}
-
-	public List<Band> getListOfBand(String service) {
-		List<Band> band = repo.getBandByOrganizerService(service);
-		return band;
-	}
-
-	public List<Costume> getListOfCostume(String service) {
-		List<Costume> costume = repo.getCostumeByOrganizerService(service);
-		return costume;
-
-	}
-	public List<Decoration>getListOfDecoration(String service){
-		List<Decoration>decoration=repo.getDecorationByOrganizerService(service);
-		return decoration;
-	}
-	public List<MakeUp>getListOfMakeUp(String service){
-		List<MakeUp>makeup=repo.getMakeUpByOrganizerService(service);
-		return makeup;
-	}
-	
-	public List<Photographer>getListOfPhotography(String service){
-		List<Photographer>photographer=repo.getPhotographerByOrganizerService(service);
-		return photographer;
-	}
 }

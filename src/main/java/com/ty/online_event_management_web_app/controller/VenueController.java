@@ -21,42 +21,50 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 public class VenueController {
-	
-	
 
 	@Autowired
 	private VenueService service;
-	
+
 	@PostMapping("/venue")
 	@ApiOperation(value = "save venue", notes = "Api is used to save venue ")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully Created "),
-		@ApiResponse(code=404,message="email is  not Found for the given organizer email")})
-	public ResponseEntity<ResponseStructure<Venue>> saveVenue(@Valid@RequestBody Venue venue,@RequestParam String email) {
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully Created "),
+			@ApiResponse(code = 404, message = "email is  not Found for the given organizer email") })
+	public ResponseEntity<ResponseStructure<Venue>> saveVenue(@Valid @RequestBody Venue venue,
+			@RequestParam String email) {
 		return service.saveVenue(venue, email);
 	}
-           
+
 	@PutMapping("venue")
 	@ApiOperation(value = "update Venue", notes = "Api is used to update Venue with given Venue id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully updated "),
-		@ApiResponse(code=404,message="Id not Found for the given Venue Id")})
-	public ResponseEntity<ResponseStructure<Venue>> updateVenue(@RequestParam int id,@Valid@RequestBody Venue venue) {
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully updated "),
+			@ApiResponse(code = 404, message = "Id not Found for the given Venue Id") })
+	public ResponseEntity<ResponseStructure<Venue>> updateVenue(@RequestParam String id, @Valid @RequestBody Venue venue) {
 		return service.updateVenue(id, venue);
 	}
 
 	@DeleteMapping("/venue")
 	@ApiOperation(value = "delete Venue", notes = "Api is used to delete Venue with given Venue id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully deleted "),
-		@ApiResponse(code=404,message="id is  not Found for the given Venue id")})
-	public ResponseEntity<ResponseStructure<Venue>> deleteVenue(@RequestParam int id) {
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully deleted "),
+			@ApiResponse(code = 404, message = "id is  not Found for the given Venue id") })
+	public ResponseEntity<ResponseStructure<Venue>> deleteVenue(@RequestParam String id) {
 		return service.deleteVenue(id);
 	}
 
 	@GetMapping("/venue")
 	@ApiOperation(value = "display Venue", notes = "Api is used to display Venue with given Venue id")
-	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
-		@ApiResponse(code=404,message=" id  is not Found for the given Venue id")})
-	public ResponseEntity<ResponseStructure<Venue>> getVenueById(@RequestParam int id) {
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully found to display "),
+			@ApiResponse(code = 404, message = " id  is not Found for the given Venue id") })
+	public ResponseEntity<ResponseStructure<Venue>> getVenueById(@RequestParam String id) {
 		return service.getVenueById(id);
+	}
+	
+	
+	@GetMapping("/venuebill")
+	@ApiOperation(value = "display venue bill", notes = "Api is used to display venuebill with given venuebill id")
+	@ApiResponses({@ApiResponse(code=201,message="Sucessfully found to display "),
+		@ApiResponse(code=404,message=" id  is not Found for the given venuebill id")})
+	public ResponseEntity<ResponseStructure<Double>> getVenueById(@RequestParam String id,@RequestParam int days) {
+		return service.getVenueBillById(id, days);
 	}
 
 }

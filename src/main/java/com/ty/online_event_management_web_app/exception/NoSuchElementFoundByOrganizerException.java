@@ -1,7 +1,7 @@
 package com.ty.online_event_management_web_app.exception;
 
 public class NoSuchElementFoundByOrganizerException extends RuntimeException {
-	private String message = "Email is not Found ";
+	private String message = "email is not Found ";
 
 	public String getMessage() {
 		return message;

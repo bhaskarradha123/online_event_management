@@ -61,4 +61,13 @@ public class CostumeController {
 		return service.getCostumeById(id);
 	}
 
+ 
+	@GetMapping("/costumes")
+	@ApiOperation(value = "display Costumess", notes = "Api is used to display Costumes with given Organizer email ")
+	@ApiResponses({ @ApiResponse(code = 201, message = "Sucessfully found to display "),
+			@ApiResponse(code = 404, message = " id  is not Found for the given Costume email") })
+	public ResponseEntity<ResponseStructure<List<Costume>>> getMenuById(@RequestParam String email) {
+		return service.getAllCostumeByEmail(email);
+	}
+
 }
